@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>County FD Radio Quick Ref</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --primary: #003087;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #222;
+            line-height: 1.4;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            margin: 8px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        details {
+            margin-bottom: 12px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 3px 8px rgba(0, 48, 135, 0.1);
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 18px 20px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), #0055cc);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            list-style: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: "▼";
+            font-size: 1.4rem;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        .zone-name {
+            flex: 1;
+        }
+
+        .content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        details[open] .content {
+            max-height: 2000px;
+        }
+
+        .channel-grid {
+            display: grid;
+            grid-template-columns: 70px 1fr;
+            gap: 1px;
+            background: #ddd;
+            margin: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .channel-header {
+            background: #f1f3f5;
+            padding: 14px 16px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .channel-row {
+            display: contents;
+        }
+
+        .channel-num {
+            background: white;
+            padding: 14px 16px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .channel-name {
+            background: white;
+            padding: 14px 20px;
+            font-size: 1.15rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .channel-row:last-child .channel-num,
+        .channel-row:last-child .channel-name {
+            border-bottom: none;
+        }
+
+        .note {
+            font-size: 0.95rem;
+            color: #555;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.4rem; }
+            summary { font-size: 1.2rem; padding: 16px 18px; }
+            .channel-name { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>COUNTY FD RADIO REFERENCE</h1>
+        <p class="subtitle">Tap any zone below • expands instantly • super simple for field use</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Z1 Main -->
+        <details>
+            <summary><span class="zone-name">Z1 Main</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">57OPS 42</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">57OPS 43</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">57OPS 44</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">57OPS 45</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">57MED 4A</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">57MED 4B</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">57MED 4C</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">57RDCFIRE1</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">57OPS 83</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">57OPS 84</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">57OPS 8A</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">57OPS 8B</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">57VFD</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">57OPS 46</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z1 Main Dispatch &amp; Operations</div>
+            </div>
+        </details>
+
+        <!-- Z2 Main MA -->
+        <details>
+            <summary><span class="zone-name">Z2 Main MA</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">29BF DISP</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">29TAC 1</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">12RDC FIRE</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">12FD TAC13</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">55FIREMS-1</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">55TAC-52</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">55BEF-OPS40</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">57 HHFD INSP</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">57 HHPD DISP</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">57 HHPD TAC1</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">57 HH PWOR KS</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">57 HH CITYWD</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">57 HHFD TRNG</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">57 HH SCH SEC</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z2 Main Mutual Aid</div>
+            </div>
+        </details>
+
+        <!-- Z3 Hosp. 1 -->
+        <details>
+            <summary><span class="zone-name">Z3 Hosp. 1</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">57 CMH</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">29 SOIN</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">57 MVH N</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">57 GVH</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">57 HHER</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">57 KMC</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">57 MVH</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">57 MVHS</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">57 SVH</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">57 VA HOSP</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">29 WPMC</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">8 TAC 92 D A1</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">7 AG 88 D LZ</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">8 AG 88 D LZ</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z3 Hospital 1</div>
+            </div>
+        </details>
+
+        <!-- Z4 RDC Mont 4_ -->
+        <details>
+            <summary><span class="zone-name">Z4 RDC Mont 4_</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">57OPS 42</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">57OPS 43</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">57OPS 44</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">57OPS 45</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">57OPS 46</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">57OPS 47</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">57OPS 48</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">57OPS 49</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">57MED 4A</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">57MED 4B</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">57MED 4C</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">57VFD</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">57VFD</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">57HHFDISP 2</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z4 RDC Montgomery 40</div>
+            </div>
+        </details>
+
+        <!-- Z5 Hosp, 2 -->
+        <details>
+            <summary><span class="zone-name">Z5 Hosp, 2</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">57CMH</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">57GVH</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">57HHER</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">57KMC</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">57MVH</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">57MVHN</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">57MVHS</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">57SVH</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">57SMC</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">57VAHOSP</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">57VAH AUST</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">HSR3 ED3</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">HSR3 MCI</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">HSR3-MCI</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z5 Hospital 2</div>
+            </div>
+        </details>
+
+        <!-- Z8 RDC Mont 8_ -->
+        <details>
+            <summary><span class="zone-name">Z8 RDC Mont 8_</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">57RDCFIRE2</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">57OPS 83</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">57OPS 84</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">57OPS 85</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">57OPS 86</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">57OPS 87</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">57OPS 88</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">57OPS 89</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">57OPS 80</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">57OPS 8A</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">57OPS 8B</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">57OPS 8C</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">57RDCFIRE1</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">57RDCFIRE1</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z8 RDC Montgomery 80</div>
+            </div>
+        </details>
+
+        <!-- Z9 RDC Mont 9_ -->
+        <details>
+            <summary><span class="zone-name">Z9 RDC Mont 9_</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">57RDCFIRE2</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">57OPS 93</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">57OPS 94</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">57OPS 95</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">57OPS 96</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">57OPS 97</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">57OPS 98</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">57OPS 99</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">57OPS 90</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">57OPS 9A</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">57OPS 9B</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">57OPS 9C</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">57DOAFIRE</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">57DOAFIRE</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z9 RDC Montgomery 90</div>
+            </div>
+        </details>
+
+        <!-- Z10 Hosp 3 -->
+        <details>
+            <summary><span class="zone-name">Z10 Hosp 3</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">29GMH</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">29SOIN</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">29WPMC</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">29BVCED1</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">83KEC FS</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">1WAYNE</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">12SRMC</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">55UVMC</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">55KHNPIQ</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">55KHTRY</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">11MERCY</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">68KHNPRB</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">HS R6 MCI</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">HS R6 MCI</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z10 Hospital 3</div>
+            </div>
+        </details>
+
+        <!-- Z19 Ch. 12 USAR -->
+        <details>
+            <summary><span class="zone-name">Z19 Ch. 12 USAR</span></summary>
+            <div class="content">
+                <div style="padding: 25px 20px; font-size: 1.4rem; text-align: center; background: #fff3cd; border-radius: 8px; margin: 15px;">
+                    <strong>Channel 12:</strong> R3 USAR<br>
+                    <span style="font-size: 1.1rem; color: #856404;">Urban Search &amp; Rescue</span>
+                </div>
+                <div class="note">Direct USAR channel – no additional channels in this zone</div>
+            </div>
+        </details>
+
+        <!-- Z29 Clark RDC -->
+        <details>
+            <summary><span class="zone-name">Z29 Clark RDC</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">12RDC FIRE</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">FD12WEPG</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">FD12EAPG</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">12FDTC13</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">12FDTC14</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">12FDTC15</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">12FDTC16</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">12FDTC17</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">7TAC51D</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">7TAC52D</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">7TAC53D</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">7TAC54D</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">12CWTAC1</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">12CWTAC1</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z29 Clark RDC</div>
+            </div>
+        </details>
+
+        <!-- Z32 Greene 1 -->
+        <details>
+            <summary><span class="zone-name">Z32 Greene 1</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">29GFDW DISP</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">29FTAC 1</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">29FTAC 2</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">29FTAC 3</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">29FTAC 4</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">29FTAC 5</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">29FTAC 6</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">29FTAC 7</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">29FTAC 8</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">29BVF DIS</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">29BFDIS</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">29FTAC21</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">29FTAC21</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">29FTAC23</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z32 Greene 1</div>
+            </div>
+        </details>
+
+        <!-- Z33 Greene 2 -->
+        <details>
+            <summary><span class="zone-name">Z33 Greene 2</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">29GFEDIS</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">29FTAC 9</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">29FTAC10</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">29FTAC11</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">29FTAC12</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">29FTAC13</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">29FTAC14</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">29FTAC15</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">29FTAC16</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">29GFEDID</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">29XCFDIS</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">29FTAC22</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">29FTAC22</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">29FTAC24</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z33 Greene 2</div>
+            </div>
+        </details>
+
+        <!-- Z35 Miami -->
+        <details>
+            <summary><span class="zone-name">Z35 Miami</span></summary>
+            <div class="content">
+                <div class="channel-grid">
+                    <div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
+                    <div class="channel-num">Ch 2</div><div class="channel-name">55FIREMS-1</div>
+                    <div class="channel-num">Ch 3</div><div class="channel-name">55TAC-52</div>
+                    <div class="channel-num">Ch 4</div><div class="channel-name">55TAC-53</div>
+                    <div class="channel-num">Ch 5</div><div class="channel-name">55TAC-54</div>
+                    <div class="channel-num">Ch 6</div><div class="channel-name">55TAC-55</div>
+                    <div class="channel-num">Ch 7</div><div class="channel-name">55TAC-56</div>
+                    <div class="channel-num">Ch 8</div><div class="channel-name">55TAC-57</div>
+                    <div class="channel-num">Ch 9</div><div class="channel-name">55TAC-58</div>
+                    <div class="channel-num">Ch 10</div><div class="channel-name">55TAC-59</div>
+                    <div class="channel-num">Ch 11</div><div class="channel-name">55TRF-OPS11</div>
+                    <div class="channel-num">Ch 12</div><div class="channel-name">55TCF-OPS30</div>
+                    <div class="channel-num">Ch 13</div><div class="channel-name">55BEF-OPS40</div>
+                    <div class="channel-num">Ch 14</div><div class="channel-name">55MIAMI PG1</div>
+                    <div class="channel-num">Ch 15</div><div class="channel-name">55MIAMI PG1</div>
+                    <div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
+                </div>
+                <div class="note">Z35 Miami</div>
+            </div>
+        </details>
+
+    </div>
+
+    <footer>
+        Works offline on any phone or tablet<br>
+        Built for quick field reference
+    </footer>
+
+    <script>
+        // Optional: auto-close other details when one opens (keeps it clean)
+        document.querySelectorAll('details').forEach((detail) => {
+            detail.addEventListener('toggle', () => {
+                if (detail.open) {
+                    document.querySelectorAll('details').forEach((other) => {
+                        if (other !== detail) other.open = false;
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
