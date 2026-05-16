@@ -1,540 +1,304 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HHFD Radio Quick Ref</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>HHFD – County FD Radio Template</title>
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
 
-    :root {
-        --primary: #003087;
-        --highlight: yellow;
-    }
+  :root {
+    --bg:#0b0f18; --surface:#131926; --surface2:#192030; --border:#2a3347;
+    --accent:#1e6fbf; --accent2:#f0a500; --text:#e6edf3; --muted:#7d8fa8; --red:#da3633;
+    --match-bg:rgba(240,165,0,.2); --match-border:#f0a500;
+    --fs-value:16px; --fs-ch:14px; --fs-title:20px; --fs-sub:12px; --fs-header:22px;
+  }
 
-    body {
-        font-family: 'Roboto', system-ui, sans-serif;
-        margin: 0;
-        background: #f8f9fa;
-        color: #222;
-        line-height: 1.4;
-    }
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 
-    header {
-        background: var(--primary);
-        color: white;
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
+  body {
+    background:var(--bg); color:var(--text);
+    font-family:'Barlow Condensed',sans-serif;
+    min-height:100vh; overscroll-behavior-y:none;
+  }
 
-    h1 {
-        margin: 0;
-        font-size: 1.6rem;
-        font-weight: 700;
-    }
+  header {
+    background:linear-gradient(160deg,#0b0f18 0%,#131e30 55%,#0b0f18 100%);
+    border-bottom:3px solid var(--accent);
+    padding:12px 16px 10px;
+    display:flex; flex-direction:column; gap:10px;
+    position:sticky; top:0; z-index:200;
+    box-shadow:0 3px 18px rgba(0,0,0,.75);
+  }
 
-    .subtitle {
-        margin-top: 8px;
-        font-size: 1.1rem;
-        opacity: 0.95;
-    }
+  .header-top { display:flex; align-items:center; gap:12px; }
 
-    .search-container {
-        max-width: 960px;
-        margin: 20px auto;
-        padding: 0 15px;
-    }
+  .badge {
+    background:var(--accent); color:#fff;
+    font-family:'Rajdhani',sans-serif; font-weight:700;
+    font-size:11px; letter-spacing:2px;
+    padding:4px 10px; border-radius:4px;
+    text-transform:uppercase; white-space:nowrap; flex-shrink:0;
+  }
 
-    #searchInput {
-        width: 100%;
-        padding: 16px;
-        font-size: 1.2rem;
-        border: 2px solid #bbb;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        outline: none;
-    }
+  h1 { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:var(--fs-header); letter-spacing:1px; line-height:1.1; }
+  h1 span { color:var(--accent2); }
+  .subtitle { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.8px; margin-top:3px; }
 
-    #searchInput:focus {
-        border-color: var(--primary);
-    }
+  .search-row { display:flex; gap:8px; align-items:center; }
+  #searchInput {
+    flex:1; min-width:0;
+    background:var(--surface2); border:1.5px solid var(--border);
+    color:var(--text); font-family:'Share Tech Mono',monospace;
+    font-size:16px; padding:10px 14px; border-radius:6px; outline:none;
+    transition:border-color .2s;
+  }
+  #searchInput:focus { border-color:var(--accent); }
+  #searchInput::placeholder { color:var(--muted); font-size:14px; }
 
-    .container {
-        max-width: 960px;
-        margin: 20px auto;
-        padding: 0 15px;
-    }
+  .nav-btn {
+    background:var(--surface2); border:1.5px solid var(--border); color:var(--text);
+    font-size:18px; padding:8px 14px; border-radius:6px; cursor:pointer;
+    transition:background .15s; flex-shrink:0; line-height:1;
+    min-width:44px; min-height:44px; display:flex; align-items:center; justify-content:center;
+  }
+  .nav-btn:hover,.nav-btn:active { background:var(--accent); border-color:var(--accent); }
+  .nav-btn:disabled { opacity:.3; }
+  .nav-btn:disabled:hover { background:var(--surface2); border-color:var(--border); }
 
-    details {
-        margin-bottom: 12px;
-        border: 2px solid #ddd;
-        border-radius: 12px;
-        background: white;
-        overflow: hidden;
-        box-shadow: 0 3px 8px rgba(0, 48, 135, 0.1);
-    }
+  .clear-btn {
+    background:transparent; border:1.5px solid var(--border); color:var(--muted);
+    font-size:15px; padding:8px 11px; border-radius:6px; cursor:pointer;
+    min-width:44px; min-height:44px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .clear-btn:hover,.clear-btn:active { border-color:var(--red); color:var(--red); }
 
-    summary {
-        padding: 18px 20px;
-        background: linear-gradient(90deg, var(--primary), #0055cc);
-        color: white;
-        font-size: 1.35rem;
-        font-weight: 700;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        list-style: none;
-    }
+  #matchCount { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--accent2); white-space:nowrap; min-width:60px; text-align:right; flex-shrink:0; }
 
-    summary::-webkit-details-marker {
-        display: none;
-    }
+  .tools-row { display:flex; gap:8px; align-items:center; }
+  .tool-btn {
+    background:transparent; border:1.5px solid var(--border); color:var(--muted);
+    font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:600;
+    padding:6px 12px; border-radius:5px; cursor:pointer; min-height:36px; letter-spacing:.5px;
+  }
+  .tool-btn:hover,.tool-btn:active { border-color:var(--accent); color:var(--accent); }
 
-    summary::after {
-        content: "▼";
-        font-size: 1.4rem;
-        transition: .3s;
-    }
+  main { padding:12px; max-width:900px; margin:0 auto; }
 
-    details[open] summary::after {
-        transform: rotate(180deg);
-    }
+  .accordion { border:1.5px solid var(--border); border-radius:8px; margin-bottom:10px; overflow:hidden; }
+  .accordion.has-match { border-color:var(--match-border); box-shadow:0 0 0 1px var(--match-border),0 4px 16px rgba(240,165,0,.12); }
 
-    .channel-grid {
-        display: grid;
-        grid-template-columns: 70px 1fr;
-        gap: 1px;
-        background: #ddd;
-        margin: 15px;
-        border-radius: 8px;
-        overflow: hidden;
-    }
+  .acc-header {
+    display:flex; align-items:center; padding:13px 14px;
+    cursor:pointer; background:var(--surface); gap:12px;
+    user-select:none; -webkit-user-select:none;
+    transition:background .15s; min-height:62px;
+  }
+  .acc-header:active { background:var(--surface2); }
 
-    .channel-num, .channel-name {
-        background: white;
-        padding: 14px 16px;
-        border-bottom: 1px solid #eee;
-    }
+  .zone-stripe { width:6px; min-height:44px; border-radius:3px; flex-shrink:0; }
 
-    .channel-num {
-        font-weight: 700;
-        color: var(--primary);
-        text-align: center;
-    }
+  /* Zone number badge — prominent for fast visual scan */
+  .zone-num {
+    font-family:'Rajdhani',sans-serif; font-weight:700;
+    font-size:22px; color:var(--accent2);
+    min-width:36px; text-align:center; flex-shrink:0; line-height:1;
+  }
 
-    .channel-name {
-        font-size: 1.15rem;
-    }
+  .acc-title-wrap { flex:1; min-width:0; }
+  .acc-title { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:var(--fs-title); letter-spacing:.5px; line-height:1.1; }
+  .acc-sub { font-family:'Share Tech Mono',monospace; font-size:var(--fs-sub); color:var(--muted); margin-top:2px; line-height:1.2; }
 
-    .highlight {
-        background: yellow;
-        padding: 2px 4px;
-        border-radius: 4px;
-    }
+  .match-pill {
+    background:var(--match-bg); border:1px solid var(--match-border);
+    color:var(--accent2); font-family:'Share Tech Mono',monospace;
+    font-size:11px; padding:2px 8px; border-radius:10px;
+    display:none; white-space:nowrap; flex-shrink:0;
+  }
+  .has-match .match-pill { display:block; }
+  .chevron { color:var(--muted); font-size:14px; transition:transform .25s; flex-shrink:0; margin-left:2px; }
+  .accordion.open .chevron { transform:rotate(180deg); }
 
-    .note {
-        text-align: center;
-        padding: 15px;
-        font-size: .95rem;
-        background: #f8f9fa;
-        border-top: 1px solid #eee;
-    }
+  .acc-body { display:none; background:var(--surface2); border-top:1.5px solid var(--border); }
+  .accordion.open .acc-body { display:block; }
+
+  .grid-table { width:100%; border-collapse:collapse; }
+  .grid-table thead tr { background:rgba(11,15,24,.85); border-bottom:1.5px solid var(--border); }
+  .grid-table th {
+    color:var(--accent); font-family:'Rajdhani',sans-serif; font-weight:700;
+    font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+    padding:8px 14px; text-align:left; white-space:nowrap;
+  }
+  .grid-table td {
+    padding:11px 14px; border-bottom:1px solid rgba(42,51,71,.4);
+    vertical-align:middle; line-height:1.3;
+  }
+  .grid-table tr:last-child td { border-bottom:none; }
+  .grid-table tr:active td { background:rgba(255,255,255,.03); }
+
+  .ch-col {
+    font-family:'Rajdhani',sans-serif; font-weight:700;
+    font-size:var(--fs-ch); color:var(--accent2);
+    width:52px; min-width:52px; white-space:nowrap;
+  }
+  .val-col { font-family:'Share Tech Mono',monospace; font-size:var(--fs-value); color:var(--text); word-break:break-word; }
+
+  mark { background:rgba(240,165,0,.3); color:#ffd370; border-radius:2px; padding:0 1px; }
+  .current-match mark { background:rgba(30,111,191,.55); color:#fff; outline:1.5px solid var(--accent); border-radius:2px; }
+
+  @media(min-width:640px){
+    :root { --fs-value:14px; --fs-ch:13px; --fs-title:18px; --fs-sub:11px; --fs-header:24px; }
+    main { padding:16px; }
+    .acc-header { min-height:56px; padding:12px 16px; }
+    .grid-table td { padding:8px 16px; }
+    .zone-num { font-size:20px; }
+  }
 </style>
 </head>
-
 <body>
-
 <header>
-    <h1>COUNTY FD RADIO REFERENCE</h1>
-    <p class="subtitle">Tap any zone • Search instantly • Built for field use</p>
+  <div class="header-top">
+    <div class="badge">🔵 HHFD</div>
+    <div>
+      <h1>HUBER HEIGHTS <span>RADIO</span></h1>
+      <div class="subtitle">COUNTY FD TEMPLATE · ZONE-FIRST · CH 1–16 PER ZONE</div>
+    </div>
+  </div>
+  <div class="search-row">
+    <input type="text" id="searchInput" placeholder="Search Z1, 57CMH, SIMPLEX…" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="none">
+    <button class="nav-btn" id="prevBtn" disabled aria-label="Previous">▲</button>
+    <button class="nav-btn" id="nextBtn" disabled aria-label="Next">▼</button>
+    <button class="clear-btn" id="clearBtn" aria-label="Clear">✕</button>
+    <div id="matchCount"></div>
+  </div>
+  <div class="tools-row">
+    <button class="tool-btn" id="expandAll">Expand All</button>
+    <button class="tool-btn" id="collapseAll">Collapse All</button>
+  </div>
 </header>
-
-<div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search zones, channels, numbers…">
-</div>
-
-<div class="container">
-
-<!-- 🔥 BEGIN ALL ORIGINAL ZONES (inserted exactly as uploaded) -->
-
-<!-- Z1 Main -->
-<details>
-<summary><span class="zone-name">Z1 Main</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">57OPS 42</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">57OPS 43</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">57OPS 44</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">57OPS 45</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">57MED 4A</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">57MED 4B</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">57MED 4C</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">57RDCFIRE1</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">57OPS 83</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">57OPS 84</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">57OPS 8A</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">57OPS 8B</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">57VFD</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">57OPS 46</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z1 Main Dispatch &amp; Operations</div>
-</div>
-</details>
-
-<!-- Z2 Main MA -->
-<details>
-<summary><span class="zone-name">Z2 Main MA</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">29BF DISP</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">29TAC 1</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">12RDC FIRE</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">12FD TAC13</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">55FIREMS-1</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">55TAC-52</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">55BEF-OPS40</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">57 HHFD INSP</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">57 HHPD DISP</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">57 HHPD TAC1</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">57 HH PWOR KS</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">57 HH CITYWD</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">57 HHFD TRNG</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">57 HH SCH SEC</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z2 Main Mutual Aid</div>
-</div>
-</details>
-
-<!-- Z3 Hosp. 1 -->
-<details>
-<summary><span class="zone-name">Z3 Hosp. 1</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">57 CMH</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">29 SOIN</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">57 MVH N</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">57 GVH</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">57 HHER</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">57 KMC</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">57 MVH</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">57 MVHS</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">57 SVH</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">57 VA HOSP</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">29 WPMC</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">8 TAC 92 D A1</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">7 AG 88 D LZ</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">8 AG 88 D LZ</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z3 Hospital 1</div>
-</div>
-</details>
-
-<!-- Z4 RDC Mont 4_ -->
-<details>
-<summary><span class="zone-name">Z4 RDC Mont 4_</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">57OPS 42</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">57OPS 43</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">57OPS 44</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">57OPS 45</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">57OPS 46</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">57OPS 47</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">57OPS 48</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">57OPS 49</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">57MED 4A</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">57MED 4B</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">57MED 4C</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">57VFD</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">57VFD</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">57HHFDISP 2</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z4 RDC Montgomery 40</div>
-</div>
-</details>
-
-<!-- Z5 Hosp. 2 -->
-<details>
-<summary><span class="zone-name">Z5 Hosp, 2</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">57CMH</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">57GVH</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">57HHER</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">57KMC</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">57MVH</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">57MVHN</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">57MVHS</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">57SVH</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">57SMC</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">57VAHOSP</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">57VAH AUST</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">HSR3 ED3</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">HSR3 MCI</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">HSR3-MCI</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z5 Hospital 2</div>
-</div>
-</details>
-
-<!-- Z8 RDC Mont 8_ -->
-<details>
-<summary><span class="zone-name">Z8 RDC Mont 8_</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">57RDCFIRE2</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">57OPS 83</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">57OPS 84</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">57OPS 85</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">57OPS 86</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">57OPS 87</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">57OPS 88</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">57OPS 89</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">57OPS 80</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">57OPS 8A</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">57OPS 8B</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">57OPS 8C</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">57RDCFIRE1</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">57RDCFIRE1</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z8 RDC Montgomery 80</div>
-</div>
-</details>
-
-<!-- Z9 RDC Mont 9_ -->
-<details>
-<summary><span class="zone-name">Z9 RDC Mont 9_</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">57RDCFIRE2</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">57OPS 93</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">57OPS 94</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">57OPS 95</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">57OPS 96</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">57OPS 97</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">57OPS 98</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">57OPS 99</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">57OPS 90</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">57OPS 9A</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">57OPS 9B</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">57OPS 9C</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">57DOAFIRE</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">57DOAFIRE</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z9 RDC Montgomery 90</div>
-</div>
-</details>
-
-<!-- Z10 Hosp. 3 -->
-<details>
-<summary><span class="zone-name">Z10 Hosp 3</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">29GMH</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">29SOIN</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">29WPMC</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">29BVCED1</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">83KEC FS</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">1WAYNE</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">12SRMC</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">55UVMC</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">55KHNPIQ</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">55KHTRY</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">11MERCY</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">68KHNPRB</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">HS R6 MCI</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">HS R6 MCI</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z10 Hospital 3</div>
-</div>
-</details>
-
-<!-- Z19 Ch. 12 USAR -->
-<details>
-<summary><span class="zone-name">Z19 Ch. 12 USAR</span></summary>
-<div class="content">
-<div style="padding: 25px 20px; font-size: 1.4rem; text-align: center; background: #fff3cd; border-radius: 8px; margin: 15px;">
-<strong>Channel 12:</strong> R3 USAR<br>
-<span style="font-size: 1.1rem; color: #856404;">Urban Search &amp; Rescue</span>
-</div>
-<div class="note">Direct USAR channel – no additional channels in this zone</div>
-</div>
-</details>
-
-<!-- Z29 Clark RDC -->
-<details>
-<summary><span class="zone-name">Z29 Clark RDC</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">12RDC FIRE</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">FD12WEPG</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">FD12EAPG</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">12FDTC13</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">12FDTC14</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">12FDTC15</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">12FDTC16</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">12FDTC17</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">7TAC51D</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">7TAC52D</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">7TAC53D</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">7TAC54D</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">12CWTAC1</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">12CWTAC1</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z29 Clark RDC</div>
-</div>
-</details>
-
-<!-- Z32 Greene 1 -->
-<details>
-<summary><span class="zone-name">Z32 Greene 1</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">29GFDW DISP</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">29FTAC 1</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">29FTAC 2</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">29FTAC 3</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">29FTAC 4</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">29FTAC 5</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">29FTAC 6</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">29FTAC 7</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">29FTAC 8</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">29BVF DIS</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">29BFDIS</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">29FTAC21</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">29FTAC21</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">29FTAC23</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z32 Greene 1</div>
-</div>
-</details>
-
-<!-- Z33 Greene 2 -->
-<details>
-<summary><span class="zone-name">Z33 Greene 2</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">29GFEDIS</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">29FTAC 9</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">29FTAC10</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">29FTAC11</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">29FTAC12</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">29FTAC13</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">29FTAC14</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">29FTAC15</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">29FTAC16</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">29GFEDID</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">29XCFDIS</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">29FTAC22</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">29FTAC22</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">29FTAC24</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z33 Greene 2</div>
-</div>
-</details>
-
-<!-- Z35 Miami -->
-<details>
-<summary><span class="zone-name">Z35 Miami</span></summary>
-<div class="content">
-<div class="channel-grid">
-<div class="channel-num">Ch 1</div><div class="channel-name">57 HHFD DISP</div>
-<div class="channel-num">Ch 2</div><div class="channel-name">55FIREMS-1</div>
-<div class="channel-num">Ch 3</div><div class="channel-name">55TAC-52</div>
-<div class="channel-num">Ch 4</div><div class="channel-name">55TAC-53</div>
-<div class="channel-num">Ch 5</div><div class="channel-name">55TAC-54</div>
-<div class="channel-num">Ch 6</div><div class="channel-name">55TAC-55</div>
-<div class="channel-num">Ch 7</div><div class="channel-name">55TAC-56</div>
-<div class="channel-num">Ch 8</div><div class="channel-name">55TAC-57</div>
-<div class="channel-num">Ch 9</div><div class="channel-name">55TAC-58</div>
-<div class="channel-num">Ch 10</div><div class="channel-name">55TAC-59</div>
-<div class="channel-num">Ch 11</div><div class="channel-name">55TRF-OPS11</div>
-<div class="channel-num">Ch 12</div><div class="channel-name">55TCF-OPS30</div>
-<div class="channel-num">Ch 13</div><div class="channel-name">55BEF-OPS40</div>
-<div class="channel-num">Ch 14</div><div class="channel-name">55MIAMI PG1</div>
-<div class="channel-num">Ch 15</div><div class="channel-name">55MIAMI PG1</div>
-<div class="channel-num">Ch 16</div><div class="channel-name">8TAC93D FD</div>
-</div>
-<div class="note">Z35 Miami</div>
-</div>
-</details>
-
-<!-- END ALL ZONES -->
-</div>
-
-<footer style="text-align:center;padding:20px;color:#666;font-size:.9rem;">
-    Works offline • Fast navigation • Built for first responders
-</footer>
-
+<main id="main"></main>
 <script>
-const searchInput = document.getElementById("searchInput");
-const zones = document.querySelectorAll("details");
+// Zones — num is displayed prominently for fast visual scan
+const ZONES=[
+  {key:"Z1",  num:"Z1",  label:"Zone 1",   sub:"Z1 · Huber Heights Primary",                       color:"#c0392b"},
+  {key:"Z2",  num:"Z2",  label:"Zone 2",   sub:"Z2 · Fairborn / Miami Co.",                         color:"#27ae60"},
+  {key:"Z3",  num:"Z3",  label:"Zone 3",   sub:"Z3 HOSP · Hospital Zone",                           color:"#d4ac0d"},
+  {key:"Z4",  num:"Z4",  label:"Zone 4",   sub:"57FD40",                                             color:"#c0392b"},
+  {key:"Z5",  num:"Z5",  label:"Zone 5",   sub:"R3HOSP1 · Region 3 Hospital 1",                    color:"#e67e22"},
+  {key:"Z8",  num:"Z8",  label:"Zone 8",   sub:"57FD80",                                             color:"#27ae60"},
+  {key:"Z9",  num:"Z9",  label:"Zone 9",   sub:"57FD90",                                             color:"#27ae60"},
+  {key:"Z10", num:"Z10", label:"Zone 10",  sub:"R3HOSP2 · Region 3 Hospital 2",                    color:"#e67e22"},
+  {key:"Z27", num:"Z27", label:"Zone 27",  sub:"12 FIRE 1 · 12COFD Clarke Co. / Bethel / New Carlisle", color:"#2d6fa3"},
+  {key:"Z28", num:"Z28", label:"Zone 28",  sub:"29 FIRE 1 · 29GFWDISP Greene Co. West",            color:"#27ae60"},
+  {key:"Z29", num:"Z29", label:"Zone 29",  sub:"29 FIRE 2 · 29GFEDIS Greene Co. East",             color:"#1e8449"},
+  {key:"Z30", num:"Z30", label:"Zone 30",  sub:"55 FIRE · 55FIREMS-S Miami County",                 color:"#c0392b"},
+];
 
-function highlightText(element, query) {
-    const original = element.dataset.original;
-    if (!query) {
-        element.innerHTML = original;
-        return;
-    }
-    const regex = new RegExp(`(${query})`, "gi");
-    element.innerHTML = original.replace(regex, "<span class='highlight'>$1</span>");
+const DATA={
+  Z1: ["57HHFD DISP","57OPS42","57OPS43","57OPS44","57OPS45","57MED4A","57MED4B","57MED4C","57RDCFIRE1","57OPS83","57OPS84","57OPS8A","57OPS8B","57VFD","57OPS46","SIMPLEX"],
+  Z2: ["57HHFD DISP","29FBFDISP Fairborn Disp","23FTAC 1","55FREMS-1 Miami County Disp","55MCF-TAC1","55BEF-TAC1 Bethel Miami TAC 1","57HHFD INSP","57 HHPD DISP","57 HHPD TAC1","57 HH PWORKS","57 HH CITYWD","57 HHFD TRNG","57 HH SCH SEC","57 RANGER","HSR3-USAR","SIMPLEX"],
+  Z3: ["57HHFD DISP","57CMH","57GSH","57GSH N","57GVH","57HHER","57KMC","57MVH","57MVHS","57SVH","57VAHOSP","29WPMC","HSR3-MCI","8TAC92D A1","7AG88D LZ","SIMPLEX"],
+  Z4: ["57HHFD DISP","57OPS42","57OPS43","57OPS44","57OPS45","57OPS46","57OPS47","57OPS48","57OPS49","57MEDIC4A","57MEDIC4B","57MEDIC4C","57HHFDISP","57VFD","57HHFDIS 2","SIMPLEX"],
+  Z5: ["57HHFD DISP","57CMH","57GSH","57GSH N","57GVH","57HHER","57KMC","57MVH","57MVHS","575VH","57SMC","57VAHOSP","57ED1","57ED2","HSR3-MCI","SIMPLEX"],
+  Z8: ["57HHFD DISP","57RDCFIRE2 OUTBOUND ONLY","57OPS83","57OPS84","57OPS85","57OPS86","57OPS87","57OPS88","57OPS89","57OPS80","57OPS8A","57OPS8B","57OPS8C","57OPS8D","57RDCFIRE1","SIMPLEX"],
+  Z9: ["57HHFD DISP","57RDCFIRE2 OUTBOUND ONLY","57OPS93","57OPS94","57OPS85","57OPS96","57OPS97","57OPS98","57OPS99","57OPS90","57OPS9A","57OPS9B","57OPS9C","57OPS9D","SIMPLEX","SIMPLEX"],
+  Z10:["57HHFD DISP","29GMH","29SOIN","29WPMC","83KEC FS","19WAYNE","12SRMC","55UVMC","11MERCY","68PREB","09ATRIUM","HSR3 ED3","HSR3 MCI","8TAC92D A1 (AIR MED PRI)","7AG88D LZ (AIR MED SEC1)","SIMPLEX"],
+  Z27:["12FDTAC6","12FDTAC7","12FDTAC8","12FDTAC9","12HOS1201","R","8TAC91D PD","8TAC92D A1","SIMPLEX","8TAC94D A2","12SO DIS","12COTAC1","12COEMA","12MARCS12","SIMPLEX","SIMPLEX"],
+  Z28:["29FTAC 1","29FTAC 2","29FTAC 3","29FTAC 4","29FTAC 5","29FTAC 6","29FTAC 7","29FTAC 8","29BVFDIS Beavercreek Disp","29FBFDISP Fairborn Disp","29 CW 1","29 CW 2","29 CW 3","29 CW 4","SIMPLEX","SIMPLEX"],
+  Z29:["29FTAC 9","29FTAC10","29FTAC11","29FTAC12","29FTAC13","29FTAC14","29FTAC15","29FTAC16","29BVF DISP Beavercreek Disp","29XCFDIS Xenia Disp","29 CW 1","29 CW 2","29 CW 3","29 CW 4","SIMPLEX","SIMPLEX"],
+  Z30:["55FIREMS-2","55MCF-TAC3","55MCF-TAC2","55MCF-TAC3","55MCF-TAC4","55MCE-TAC1","55MCE-TAC2","55MCE-TAC3","55MCE-TAC4","55TCF-TAC1 Tipp City TAC 1","55TCE-TAC1","55WMF-TAC8 West Milton","55BEF-TAC3 Bethel Miami","55-911","SIMPLEX","SIMPLEX"],
+};
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function hl(t,q){const e=esc(t);if(!q)return e;return e.replace(new RegExp('('+escRe(q)+')','gi'),'<mark>$1</mark>');}
+function hits(t,q){if(!q)return 0;return(t.match(new RegExp(escRe(q),'gi'))||[]).length;}
+
+const mainEl=document.getElementById('main');
+
+function render(query){
+  mainEl.innerHTML='';
+  const q=(query||'').trim().toLowerCase();
+  let total=0;
+  ZONES.forEach(zone=>{
+    const vals=DATA[zone.key];
+    const allText=(vals.join(' ')+' '+zone.num+' '+zone.label+' '+zone.sub).toLowerCase();
+    const n=q?hits(allText,q):0;
+    total+=n;
+    const div=document.createElement('div');
+    div.className='accordion'+(q&&n>0?' has-match':'');
+    const rows=vals.map((v,i)=>`<tr>
+      <td class="ch-col">CH&nbsp;${i+1}</td>
+      <td class="val-col">${hl(v,q)}</td>
+    </tr>`).join('');
+    div.innerHTML=`
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="zone-stripe" style="background:${zone.color}"></span>
+        <span class="zone-num" style="color:${zone.color}">${esc(zone.num)}</span>
+        <div class="acc-title-wrap">
+          <div class="acc-title">${esc(zone.label)}</div>
+          <div class="acc-sub">${esc(zone.sub)}</div>
+        </div>
+        <span class="match-pill">${n} match${n!==1?'es':''}</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="acc-body">
+        <table class="grid-table">
+          <thead><tr><th>CH</th><th>CALL SIGN / ASSIGNMENT</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+    mainEl.appendChild(div);
+  });
+  if(q){
+    document.querySelectorAll('.accordion.has-match').forEach(a=>a.classList.add('open'));
+    document.querySelectorAll('.accordion:not(.has-match)').forEach(a=>a.classList.remove('open'));
+  }
+  const mc=document.getElementById('matchCount');
+  mc.textContent=q?(total===0?'No matches':`${total} match${total!==1?'es':''}`):'';
 }
 
-document.querySelectorAll(".channel-name, .zone-name").forEach(el => {
-    el.dataset.original = el.innerHTML;
+function toggleAcc(h){h.closest('.accordion').classList.toggle('open');}
+
+let marks=[],cur=-1;
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+function gather(){marks=Array.from(document.querySelectorAll('.accordion.open mark'));cur=marks.length?0:-1;nav();}
+function nav(){prevBtn.disabled=!marks.length||cur<=0;nextBtn.disabled=!marks.length||cur>=marks.length-1;}
+function focusMark(i){
+  document.querySelectorAll('.current-match').forEach(m=>m.classList.remove('current-match'));
+  if(i<0||i>=marks.length)return;
+  cur=i;const m=marks[i];m.classList.add('current-match');
+  const acc=m.closest('.accordion');if(acc&&!acc.classList.contains('open'))acc.classList.add('open');
+  m.scrollIntoView({behavior:'smooth',block:'center'});nav();
+  document.getElementById('matchCount').textContent=`${i+1} / ${marks.length}`;
+}
+prevBtn.addEventListener('click',()=>focusMark(cur-1));
+nextBtn.addEventListener('click',()=>focusMark(cur+1));
+document.getElementById('clearBtn').addEventListener('click',()=>{
+  document.getElementById('searchInput').value='';
+  render('');marks=[];cur=-1;prevBtn.disabled=true;nextBtn.disabled=true;
+  document.getElementById('matchCount').textContent='';
 });
-
-searchInput.addEventListener("input", () => {
-    const q = searchInput.value.toLowerCase();
-
-    zones.forEach(zone => {
-        const zoneText = zone.innerText.toLowerCase();
-        const match = zoneText.includes(q);
-
-        zone.style.display = match ? "" : "";
-
-        if (q && match) zone.open = true;
-        if (!q) zone.open = false;
-
-        zone.querySelectorAll(".channel-name, .zone-name").forEach(el => {
-            highlightText(el, q);
-        });
-    });
-
-    if (!q) {
-        zones.forEach(z => {
-            z.style.display = "";
-            z.querySelectorAll(".channel-name, .zone-name").forEach(el => {
-                el.innerHTML = el.dataset.original;
-            });
-        });
-    }
+let tmr;
+document.getElementById('searchInput').addEventListener('input',e=>{
+  clearTimeout(tmr);
+  tmr=setTimeout(()=>{
+    const q=e.target.value.trim();render(q);
+    if(q){setTimeout(()=>{gather();if(marks.length)focusMark(0);},30);}
+    else{marks=[];cur=-1;prevBtn.disabled=true;nextBtn.disabled=true;}
+  },150);
 });
+document.getElementById('searchInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){e.shiftKey?focusMark(cur-1):focusMark(cur+1);}
+  if(e.key==='Escape')document.getElementById('clearBtn').click();
+});
+document.getElementById('expandAll').addEventListener('click',()=>document.querySelectorAll('.accordion').forEach(a=>a.classList.add('open')));
+document.getElementById('collapseAll').addEventListener('click',()=>{
+  document.querySelectorAll('.accordion').forEach(a=>a.classList.remove('open'));marks=[];cur=-1;nav();
+});
+render('');
 </script>
-
 </body>
 </html>
