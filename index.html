@@ -7,152 +7,118 @@
 <title>HHFD – County FD Radio Template</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
-
-  :root {
-    --bg:#0b0f18; --surface:#131926; --surface2:#192030; --border:#2a3347;
-    --accent:#1e6fbf; --accent2:#f0a500; --text:#e6edf3; --muted:#7d8fa8; --red:#da3633;
-    --match-bg:rgba(240,165,0,.2); --match-border:#f0a500;
-    --fs-value:16px; --fs-ch:14px; --fs-title:20px; --fs-sub:12px; --fs-header:22px;
+  :root{
+    --bg:#0b0f18;--surface:#131926;--surface2:#192030;--border:#2a3347;
+    --accent:#1e6fbf;--accent2:#f0a500;--text:#e6edf3;--muted:#7d8fa8;--red:#da3633;--green:#2ea043;
+    --match-bg:rgba(240,165,0,.2);--match-border:#f0a500;
+    --edit-border:#1e6fbf;--edit-bg:rgba(30,111,191,.1);
   }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{background:var(--bg);color:var(--text);font-family:'Barlow Condensed',sans-serif;min-height:100vh;overscroll-behavior-y:none;}
 
-  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  header{background:linear-gradient(160deg,#0b0f18 0%,#131e30 55%,#0b0f18 100%);border-bottom:3px solid var(--accent);padding:12px 16px 10px;display:flex;flex-direction:column;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 3px 18px rgba(0,0,0,.75);}
+  .header-top{display:flex;align-items:center;gap:12px;}
+  .badge{background:var(--accent);color:#fff;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:11px;letter-spacing:2px;padding:4px 10px;border-radius:4px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;}
+  h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(18px,5vw,24px);letter-spacing:1px;line-height:1.1;}
+  h1 span{color:var(--accent2);}
+  .subtitle{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.8px;margin-top:3px;}
+  .search-row{display:flex;gap:8px;align-items:center;}
+  #searchInput{flex:1;min-width:0;background:var(--surface2);border:1.5px solid var(--border);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:16px;padding:10px 14px;border-radius:6px;outline:none;transition:border-color .2s;}
+  #searchInput:focus{border-color:var(--accent);}
+  #searchInput::placeholder{color:var(--muted);font-size:14px;}
+  .nav-btn{background:var(--surface2);border:1.5px solid var(--border);color:var(--text);font-size:18px;padding:8px 14px;border-radius:6px;cursor:pointer;transition:background .15s;flex-shrink:0;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
+  .nav-btn:hover,.nav-btn:active{background:var(--accent);border-color:var(--accent);}
+  .nav-btn:disabled{opacity:.3;}
+  .nav-btn:disabled:hover{background:var(--surface2);border-color:var(--border);}
+  .clear-btn{background:transparent;border:1.5px solid var(--border);color:var(--muted);font-size:15px;padding:8px 11px;border-radius:6px;cursor:pointer;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .clear-btn:hover,.clear-btn:active{border-color:var(--red);color:var(--red);}
+  #matchCount{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--accent2);white-space:nowrap;min-width:60px;text-align:right;flex-shrink:0;}
+  .tools-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .tool-btn{background:transparent;border:1.5px solid var(--border);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;padding:6px 12px;border-radius:5px;cursor:pointer;min-height:36px;letter-spacing:.5px;transition:all .15s;}
+  .tool-btn:hover,.tool-btn:active{border-color:var(--accent);color:var(--accent);}
+  .tool-btn.edit-active{border-color:var(--edit-border);color:var(--edit-border);background:var(--edit-bg);}
+  .edit-banner{display:none;background:rgba(30,111,191,.15);border:1.5px solid var(--edit-border);border-radius:6px;padding:8px 14px;font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--edit-border);letter-spacing:.5px;}
+  .edit-banner.show{display:block;}
+  .tool-btn.export{border-color:#2ea043;color:#2ea043;}
+  .tool-btn.export:hover{background:rgba(46,160,67,.1);}
+  .tool-btn.import-btn{border-color:#bc8cff;color:#bc8cff;}
+  .tool-btn.import-btn:hover{background:rgba(188,140,255,.1);}
+  #importFile{display:none;}
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;align-items:center;justify-content:center;padding:20px;}
+  .modal-overlay.show{display:flex;}
+  .modal{background:#192030;border:1.5px solid var(--accent);border-radius:10px;padding:24px;max-width:420px;width:100%;font-family:'Barlow Condensed',sans-serif;}
+  .modal h2{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--accent);margin-bottom:12px;letter-spacing:1px;}
+  .modal p{font-size:15px;color:var(--text);line-height:1.5;margin-bottom:10px;}
+  .modal .warn{color:var(--accent2);font-family:'Share Tech Mono',monospace;font-size:12px;line-height:1.6;background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.3);border-radius:6px;padding:10px 12px;margin-bottom:4px;}
+  .modal-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+  .modal-btn{flex:1;min-width:120px;padding:10px 14px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;cursor:pointer;border:none;transition:opacity .15s;}
+  .modal-btn.confirm{background:var(--accent);color:#fff;}
+  .modal-btn.cancel{background:var(--surface2);color:var(--muted);border:1.5px solid var(--border);}
+  .modal-btn:hover{opacity:.85;}
 
-  body {
-    background:var(--bg); color:var(--text);
-    font-family:'Barlow Condensed',sans-serif;
-    min-height:100vh; overscroll-behavior-y:none;
-  }
+  main{padding:12px;max-width:900px;margin:0 auto;}
 
-  header {
-    background:linear-gradient(160deg,#0b0f18 0%,#131e30 55%,#0b0f18 100%);
-    border-bottom:3px solid var(--accent);
-    padding:12px 16px 10px;
-    display:flex; flex-direction:column; gap:10px;
-    position:sticky; top:0; z-index:200;
-    box-shadow:0 3px 18px rgba(0,0,0,.75);
-  }
+  .accordion{border:1.5px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden;}
+  .accordion.has-match{border-color:var(--match-border);box-shadow:0 0 0 1px var(--match-border),0 4px 16px rgba(240,165,0,.12);}
+  .acc-header{display:flex;align-items:center;padding:13px 14px;cursor:pointer;background:var(--surface);gap:12px;user-select:none;-webkit-user-select:none;transition:background .15s;min-height:62px;}
+  .acc-header:active{background:var(--surface2);}
+  .zone-stripe{width:6px;min-height:44px;border-radius:3px;flex-shrink:0;}
+  .zone-num{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:22px;min-width:38px;text-align:center;flex-shrink:0;line-height:1;}
+  .acc-title-wrap{flex:1;min-width:0;}
+  .acc-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;letter-spacing:.5px;line-height:1.1;color:var(--text);}
+  .acc-sub{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);margin-top:2px;line-height:1.2;}
 
-  .header-top { display:flex; align-items:center; gap:12px; }
+  .editable-label{background:transparent;border:none;outline:none;color:inherit;font:inherit;width:100%;cursor:default;}
+  .edit-mode .editable-label{cursor:text;border-bottom:1.5px dashed var(--edit-border);background:var(--edit-bg);border-radius:3px 3px 0 0;padding:1px 4px;}
+  .editable-label:focus{border-bottom:1.5px solid var(--edit-border);background:rgba(30,111,191,.18);}
 
-  .badge {
-    background:var(--accent); color:#fff;
-    font-family:'Rajdhani',sans-serif; font-weight:700;
-    font-size:11px; letter-spacing:2px;
-    padding:4px 10px; border-radius:4px;
-    text-transform:uppercase; white-space:nowrap; flex-shrink:0;
-  }
+  .match-pill{background:var(--match-bg);border:1px solid var(--match-border);color:var(--accent2);font-family:'Share Tech Mono',monospace;font-size:11px;padding:2px 8px;border-radius:10px;display:none;white-space:nowrap;flex-shrink:0;}
+  .has-match .match-pill{display:block;}
+  .chevron{color:var(--muted);font-size:14px;transition:transform .25s;flex-shrink:0;margin-left:2px;}
+  .accordion.open .chevron{transform:rotate(180deg);}
 
-  h1 { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:var(--fs-header); letter-spacing:1px; line-height:1.1; }
-  h1 span { color:var(--accent2); }
-  .subtitle { font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.8px; margin-top:3px; }
+  .zone-actions{display:none;align-items:center;gap:8px;padding:8px 14px;background:rgba(30,111,191,.07);border-top:1px solid var(--border);}
+  .edit-mode .zone-actions{display:flex;flex-wrap:wrap;}
+  .zact-btn{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;padding:4px 10px;border-radius:4px;cursor:pointer;min-height:32px;transition:all .15s;}
+  .zact-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .zact-btn.danger:hover{border-color:var(--red);color:var(--red);}
+  .zact-btn.add{border-color:var(--green);color:var(--green);}
 
-  .search-row { display:flex; gap:8px; align-items:center; }
-  #searchInput {
-    flex:1; min-width:0;
-    background:var(--surface2); border:1.5px solid var(--border);
-    color:var(--text); font-family:'Share Tech Mono',monospace;
-    font-size:16px; padding:10px 14px; border-radius:6px; outline:none;
-    transition:border-color .2s;
-  }
-  #searchInput:focus { border-color:var(--accent); }
-  #searchInput::placeholder { color:var(--muted); font-size:14px; }
+  .acc-body{display:none;background:var(--surface2);border-top:1.5px solid var(--border);}
+  .accordion.open .acc-body{display:block;}
 
-  .nav-btn {
-    background:var(--surface2); border:1.5px solid var(--border); color:var(--text);
-    font-size:18px; padding:8px 14px; border-radius:6px; cursor:pointer;
-    transition:background .15s; flex-shrink:0; line-height:1;
-    min-width:44px; min-height:44px; display:flex; align-items:center; justify-content:center;
-  }
-  .nav-btn:hover,.nav-btn:active { background:var(--accent); border-color:var(--accent); }
-  .nav-btn:disabled { opacity:.3; }
-  .nav-btn:disabled:hover { background:var(--surface2); border-color:var(--border); }
+  .grid-table{width:100%;border-collapse:collapse;}
+  .grid-table thead tr{background:rgba(11,15,24,.85);border-bottom:1.5px solid var(--border);}
+  .grid-table th{color:var(--accent);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:8px 14px;text-align:left;white-space:nowrap;}
+  .grid-table td{padding:8px 14px;border-bottom:1px solid rgba(42,51,71,.4);vertical-align:middle;line-height:1.3;}
+  .grid-table tr:last-child td{border-bottom:none;}
+  .ch-col{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--accent2);width:52px;min-width:52px;white-space:nowrap;}
+  .val-col{font-family:'Share Tech Mono',monospace;font-size:16px;color:var(--text);word-break:break-word;}
 
-  .clear-btn {
-    background:transparent; border:1.5px solid var(--border); color:var(--muted);
-    font-size:15px; padding:8px 11px; border-radius:6px; cursor:pointer;
-    min-width:44px; min-height:44px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .clear-btn:hover,.clear-btn:active { border-color:var(--red); color:var(--red); }
+  .cell-input{font-family:'Share Tech Mono',monospace;font-size:16px;color:var(--text);background:transparent;border:none;outline:none;width:100%;cursor:default;line-height:1.3;}
+  .edit-mode .cell-input{cursor:text;border-bottom:1.5px dashed rgba(30,111,191,.5);}
+  .edit-mode .cell-input:focus{border-bottom:1.5px solid var(--edit-border);background:rgba(30,111,191,.1);border-radius:3px 3px 0 0;padding:0 3px;}
 
-  #matchCount { font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--accent2); white-space:nowrap; min-width:60px; text-align:right; flex-shrink:0; }
+  .row-del{display:none;width:32px;min-width:32px;text-align:center;}
+  .edit-mode .row-del{display:table-cell;}
+  .del-btn{background:transparent;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:4px;border-radius:4px;line-height:1;}
+  .del-btn:hover{color:var(--red);}
 
-  .tools-row { display:flex; gap:8px; align-items:center; }
-  .tool-btn {
-    background:transparent; border:1.5px solid var(--border); color:var(--muted);
-    font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:600;
-    padding:6px 12px; border-radius:5px; cursor:pointer; min-height:36px; letter-spacing:.5px;
-  }
-  .tool-btn:hover,.tool-btn:active { border-color:var(--accent); color:var(--accent); }
+  mark{background:rgba(240,165,0,.3);color:#ffd370;border-radius:2px;padding:0 1px;}
+  .current-match mark{background:rgba(30,111,191,.55);color:#fff;outline:1.5px solid var(--accent);border-radius:2px;}
 
-  main { padding:12px; max-width:900px; margin:0 auto; }
-
-  .accordion { border:1.5px solid var(--border); border-radius:8px; margin-bottom:10px; overflow:hidden; }
-  .accordion.has-match { border-color:var(--match-border); box-shadow:0 0 0 1px var(--match-border),0 4px 16px rgba(240,165,0,.12); }
-
-  .acc-header {
-    display:flex; align-items:center; padding:13px 14px;
-    cursor:pointer; background:var(--surface); gap:12px;
-    user-select:none; -webkit-user-select:none;
-    transition:background .15s; min-height:62px;
-  }
-  .acc-header:active { background:var(--surface2); }
-
-  .zone-stripe { width:6px; min-height:44px; border-radius:3px; flex-shrink:0; }
-
-  /* Zone number badge — prominent for fast visual scan */
-  .zone-num {
-    font-family:'Rajdhani',sans-serif; font-weight:700;
-    font-size:22px; color:var(--accent2);
-    min-width:36px; text-align:center; flex-shrink:0; line-height:1;
-  }
-
-  .acc-title-wrap { flex:1; min-width:0; }
-  .acc-title { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:var(--fs-title); letter-spacing:.5px; line-height:1.1; }
-  .acc-sub { font-family:'Share Tech Mono',monospace; font-size:var(--fs-sub); color:var(--muted); margin-top:2px; line-height:1.2; }
-
-  .match-pill {
-    background:var(--match-bg); border:1px solid var(--match-border);
-    color:var(--accent2); font-family:'Share Tech Mono',monospace;
-    font-size:11px; padding:2px 8px; border-radius:10px;
-    display:none; white-space:nowrap; flex-shrink:0;
-  }
-  .has-match .match-pill { display:block; }
-  .chevron { color:var(--muted); font-size:14px; transition:transform .25s; flex-shrink:0; margin-left:2px; }
-  .accordion.open .chevron { transform:rotate(180deg); }
-
-  .acc-body { display:none; background:var(--surface2); border-top:1.5px solid var(--border); }
-  .accordion.open .acc-body { display:block; }
-
-  .grid-table { width:100%; border-collapse:collapse; }
-  .grid-table thead tr { background:rgba(11,15,24,.85); border-bottom:1.5px solid var(--border); }
-  .grid-table th {
-    color:var(--accent); font-family:'Rajdhani',sans-serif; font-weight:700;
-    font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
-    padding:8px 14px; text-align:left; white-space:nowrap;
-  }
-  .grid-table td {
-    padding:11px 14px; border-bottom:1px solid rgba(42,51,71,.4);
-    vertical-align:middle; line-height:1.3;
-  }
-  .grid-table tr:last-child td { border-bottom:none; }
-  .grid-table tr:active td { background:rgba(255,255,255,.03); }
-
-  .ch-col {
-    font-family:'Rajdhani',sans-serif; font-weight:700;
-    font-size:var(--fs-ch); color:var(--accent2);
-    width:52px; min-width:52px; white-space:nowrap;
-  }
-  .val-col { font-family:'Share Tech Mono',monospace; font-size:var(--fs-value); color:var(--text); word-break:break-word; }
-
-  mark { background:rgba(240,165,0,.3); color:#ffd370; border-radius:2px; padding:0 1px; }
-  .current-match mark { background:rgba(30,111,191,.55); color:#fff; outline:1.5px solid var(--accent); border-radius:2px; }
+  #addZoneBtn{margin-top:6px;width:100%;border:1.5px dashed var(--border);background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;padding:12px;border-radius:8px;cursor:pointer;display:none;letter-spacing:.5px;transition:all .15s;}
+  #addZoneBtn:hover{border-color:var(--green);color:var(--green);}
+  .edit-mode-wrap #addZoneBtn{display:block;}
 
   @media(min-width:640px){
-    :root { --fs-value:14px; --fs-ch:13px; --fs-title:18px; --fs-sub:11px; --fs-header:24px; }
-    main { padding:16px; }
-    .acc-header { min-height:56px; padding:12px 16px; }
-    .grid-table td { padding:8px 16px; }
-    .zone-num { font-size:20px; }
+    .cell-input,.val-col{font-size:14px;}
+    .acc-title{font-size:18px;}
+    .acc-sub{font-size:11px;}
+    .zone-num{font-size:20px;}
+    main{padding:16px;}
+    .acc-header{min-height:56px;padding:12px 16px;}
+    .grid-table td{padding:8px 16px;}
   }
 </style>
 </head>
@@ -167,20 +133,53 @@
   </div>
   <div class="search-row">
     <input type="text" id="searchInput" placeholder="Search Z1, 57CMH, SIMPLEX…" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="none">
-    <button class="nav-btn" id="prevBtn" disabled aria-label="Previous">▲</button>
-    <button class="nav-btn" id="nextBtn" disabled aria-label="Next">▼</button>
-    <button class="clear-btn" id="clearBtn" aria-label="Clear">✕</button>
+    <button class="nav-btn" id="prevBtn" disabled>▲</button>
+    <button class="nav-btn" id="nextBtn" disabled>▼</button>
+    <button class="clear-btn" id="clearBtn">✕</button>
     <div id="matchCount"></div>
   </div>
   <div class="tools-row">
     <button class="tool-btn" id="expandAll">Expand All</button>
     <button class="tool-btn" id="collapseAll">Collapse All</button>
+    <button class="tool-btn" id="editToggle">✏️ Edit</button>
+    <button class="tool-btn export" id="exportBtn">⬇ Export</button>
+    <button class="tool-btn import-btn" id="importBtn">⬆ Import</button>
+    <input type="file" id="importFile" accept=".json">
   </div>
+  <div class="edit-banner" id="editBanner">EDIT MODE · Tap any call sign, zone label, or subtitle to change it · Changes save automatically</div>
 </header>
-<main id="main"></main>
+
+<div class="modal-overlay" id="disclaimerModal">
+  <div class="modal">
+    <h2>⚠️ OPERATIONAL DISCLAIMER</h2>
+    <p>This tool is a <strong>quick-reference aid only</strong> and is not a substitute for official dispatch systems, CAD, or department-issued radio programming.</p>
+    <div class="warn">· Always verify frequencies with your dispatch center<br>· Channel assignments may change without notice<br>· Do not rely solely on this app during active incidents<br>· Export your data regularly to prevent loss<br>· localStorage is browser-specific — use Export/Import to sync across devices</div>
+    <p style="font-size:13px;color:var(--muted);margin-top:8px;">Shown once. Tap Continue to proceed.</p>
+    <div class="modal-btns"><button class="modal-btn confirm" id="disclaimerOk">Continue</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="importModal">
+  <div class="modal">
+    <h2>⬆ Import Data</h2>
+    <p>This will <strong>replace all current data</strong> with the imported file. Your existing edits will be overwritten.</p>
+    <div class="warn">Export a backup first if you want to keep your current data.</div>
+    <div class="modal-btns">
+      <button class="modal-btn confirm" id="importConfirm">Replace &amp; Import</button>
+      <button class="modal-btn cancel" id="importCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="mainWrap">
+  <main id="main"></main>
+  <button id="addZoneBtn">＋ Add New Zone</button>
+</div>
+
 <script>
-// Zones — num is displayed prominently for fast visual scan
-const ZONES=[
+const STORAGE_KEY = 'hhfd_radio_v1';
+
+const DEFAULT_ZONES = [
   {key:"Z1",  num:"Z1",  label:"Zone 1",   sub:"Z1 · Huber Heights Primary",                       color:"#c0392b"},
   {key:"Z2",  num:"Z2",  label:"Zone 2",   sub:"Z2 · Fairborn / Miami Co.",                         color:"#27ae60"},
   {key:"Z3",  num:"Z3",  label:"Zone 3",   sub:"Z3 HOSP · Hospital Zone",                           color:"#d4ac0d"},
@@ -195,7 +194,7 @@ const ZONES=[
   {key:"Z30", num:"Z30", label:"Zone 30",  sub:"55 FIRE · 55FIREMS-S Miami County",                 color:"#c0392b"},
 ];
 
-const DATA={
+const DEFAULT_DATA = {
   Z1: ["57HHFD DISP","57OPS42","57OPS43","57OPS44","57OPS45","57MED4A","57MED4B","57MED4C","57RDCFIRE1","57OPS83","57OPS84","57OPS8A","57OPS8B","57VFD","57OPS46","SIMPLEX"],
   Z2: ["57HHFD DISP","29FBFDISP Fairborn Disp","23FTAC 1","55FREMS-1 Miami County Disp","55MCF-TAC1","55BEF-TAC1 Bethel Miami TAC 1","57HHFD INSP","57 HHPD DISP","57 HHPD TAC1","57 HH PWORKS","57 HH CITYWD","57 HHFD TRNG","57 HH SCH SEC","57 RANGER","HSR3-USAR","SIMPLEX"],
   Z3: ["57HHFD DISP","57CMH","57GSH","57GSH N","57GVH","57HHER","57KMC","57MVH","57MVHS","57SVH","57VAHOSP","29WPMC","HSR3-MCI","8TAC92D A1","7AG88D LZ","SIMPLEX"],
@@ -210,57 +209,224 @@ const DATA={
   Z30:["55FIREMS-2","55MCF-TAC3","55MCF-TAC2","55MCF-TAC3","55MCF-TAC4","55MCE-TAC1","55MCE-TAC2","55MCE-TAC3","55MCE-TAC4","55TCF-TAC1 Tipp City TAC 1","55TCE-TAC1","55WMF-TAC8 West Milton","55BEF-TAC3 Bethel Miami","55-911","SIMPLEX","SIMPLEX"],
 };
 
+// ── STATE ────────────────────────────────────────
+let state = loadState();
+let editMode = false;
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return {
+    zones: JSON.parse(JSON.stringify(DEFAULT_ZONES)),
+    data:  JSON.parse(JSON.stringify(DEFAULT_DATA)),
+  };
+}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+function uniqueKey(base) {
+  let k = base.replace(/\s+/g,'_').toUpperCase();
+  let n = 2;
+  while (state.zones.find(z => z.key === k)) k = base.replace(/\s+/g,'_').toUpperCase() + '_' + (n++);
+  return k;
+}
+
+// ── HELPERS ──────────────────────────────────────
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 function hl(t,q){const e=esc(t);if(!q)return e;return e.replace(new RegExp('('+escRe(q)+')','gi'),'<mark>$1</mark>');}
 function hits(t,q){if(!q)return 0;return(t.match(new RegExp(escRe(q),'gi'))||[]).length;}
 
-const mainEl=document.getElementById('main');
+// ── RENDER ───────────────────────────────────────
+const mainEl = document.getElementById('main');
+const mainWrap = document.getElementById('mainWrap');
 
-function render(query){
-  mainEl.innerHTML='';
-  const q=(query||'').trim().toLowerCase();
-  let total=0;
-  ZONES.forEach(zone=>{
-    const vals=DATA[zone.key];
-    const allText=(vals.join(' ')+' '+zone.num+' '+zone.label+' '+zone.sub).toLowerCase();
-    const n=q?hits(allText,q):0;
-    total+=n;
-    const div=document.createElement('div');
-    div.className='accordion'+(q&&n>0?' has-match':'');
-    const rows=vals.map((v,i)=>`<tr>
-      <td class="ch-col">CH&nbsp;${i+1}</td>
-      <td class="val-col">${hl(v,q)}</td>
-    </tr>`).join('');
-    div.innerHTML=`
-      <div class="acc-header" onclick="toggleAcc(this)">
+function render(query) {
+  mainEl.innerHTML = '';
+  const q = (query||'').trim().toLowerCase();
+  let total = 0;
+
+  state.zones.forEach((zone) => {
+    const vals = state.data[zone.key] || [];
+    const allText = (vals.join(' ') + ' ' + (zone.num||'') + ' ' + zone.label + ' ' + zone.sub).toLowerCase();
+    const n = q ? hits(allText, q) : 0;
+    total += n;
+
+    const div = document.createElement('div');
+    div.className = 'accordion' + (q && n > 0 ? ' has-match' : '');
+    div.dataset.zkey = zone.key;
+
+    const rowsHtml = vals.map((v, ci) => `
+      <tr data-ci="${ci}">
+        <td class="ch-col">CH&nbsp;${ci+1}</td>
+        <td class="val-col">
+          <input class="cell-input" type="text" value="${esc(v)}"
+            data-zkey="${esc(zone.key)}" data-ci="${ci}"
+            readonly spellcheck="false" autocorrect="off" autocapitalize="none"
+            aria-label="Channel ${ci+1} call sign">
+        </td>
+        <td class="row-del">
+          <button class="del-btn" title="Remove channel" onclick="delChannel('${esc(zone.key)}',${ci})">✕</button>
+        </td>
+      </tr>`).join('');
+
+    const numDisplay = zone.num || zone.key;
+
+    div.innerHTML = `
+      <div class="acc-header" onclick="headerClick(event,this)">
         <span class="zone-stripe" style="background:${zone.color}"></span>
-        <span class="zone-num" style="color:${zone.color}">${esc(zone.num)}</span>
+        <span class="zone-num" style="color:${zone.color}">${esc(numDisplay)}</span>
         <div class="acc-title-wrap">
-          <div class="acc-title">${esc(zone.label)}</div>
-          <div class="acc-sub">${esc(zone.sub)}</div>
+          <div class="acc-title">
+            <input class="editable-label" type="text" value="${esc(zone.label)}"
+              data-zkey="${esc(zone.key)}" data-field="label"
+              readonly spellcheck="false" autocorrect="off" autocapitalize="characters"
+              aria-label="Zone label">
+          </div>
+          <div class="acc-sub">
+            <input class="editable-label" type="text" value="${esc(zone.sub)}"
+              data-zkey="${esc(zone.key)}" data-field="sub"
+              readonly spellcheck="false" autocorrect="off"
+              aria-label="Zone subtitle">
+          </div>
         </div>
         <span class="match-pill">${n} match${n!==1?'es':''}</span>
         <span class="chevron">▼</span>
       </div>
+      <div class="zone-actions">
+        <button class="zact-btn add" onclick="addChannel('${esc(zone.key)}')">＋ Add Channel</button>
+        <button class="zact-btn danger" onclick="deleteZone('${esc(zone.key)}')">🗑 Delete Zone</button>
+      </div>
       <div class="acc-body">
         <table class="grid-table">
-          <thead><tr><th>CH</th><th>CALL SIGN / ASSIGNMENT</th></tr></thead>
-          <tbody>${rows}</tbody>
+          <thead><tr>
+            <th>CH</th><th>CALL SIGN / ASSIGNMENT</th>
+            <th class="row-del" style="width:32px"></th>
+          </tr></thead>
+          <tbody>${rowsHtml}</tbody>
         </table>
       </div>`;
+
     mainEl.appendChild(div);
   });
-  if(q){
-    document.querySelectorAll('.accordion.has-match').forEach(a=>a.classList.add('open'));
-    document.querySelectorAll('.accordion:not(.has-match)').forEach(a=>a.classList.remove('open'));
+
+  if (q) {
+    document.querySelectorAll('.accordion.has-match').forEach(a => a.classList.add('open'));
+    document.querySelectorAll('.accordion:not(.has-match)').forEach(a => a.classList.remove('open'));
   }
-  const mc=document.getElementById('matchCount');
-  mc.textContent=q?(total===0?'No matches':`${total} match${total!==1?'es':''}`):'';
+
+  applyEditMode();
+  bindInputs();
+
+  const mc = document.getElementById('matchCount');
+  mc.textContent = q ? (total===0 ? 'No matches' : `${total} match${total!==1?'es':''}`) : '';
 }
 
-function toggleAcc(h){h.closest('.accordion').classList.toggle('open');}
+function applyEditMode() {
+  if (editMode) {
+    mainWrap.classList.add('edit-mode-wrap');
+    document.querySelectorAll('.accordion').forEach(a => a.classList.add('edit-mode'));
+    document.querySelectorAll('.editable-label, .cell-input').forEach(i => i.removeAttribute('readonly'));
+  } else {
+    mainWrap.classList.remove('edit-mode-wrap');
+    document.querySelectorAll('.accordion').forEach(a => a.classList.remove('edit-mode'));
+    document.querySelectorAll('.editable-label, .cell-input').forEach(i => i.setAttribute('readonly',''));
+  }
+}
 
+function bindInputs() {
+  document.querySelectorAll('.cell-input').forEach(input => {
+    input.addEventListener('change', e => {
+      const key = e.target.dataset.zkey;
+      const ci = parseInt(e.target.dataset.ci);
+      if (!state.data[key]) return;
+      state.data[key][ci] = e.target.value;
+      save();
+    });
+    input.addEventListener('click', e => { if(editMode) e.stopPropagation(); });
+    input.addEventListener('focus', e => { if(editMode) e.stopPropagation(); });
+  });
+
+  document.querySelectorAll('.editable-label').forEach(input => {
+    input.addEventListener('change', e => {
+      const key = e.target.dataset.zkey;
+      const field = e.target.dataset.field;
+      const zone = state.zones.find(z => z.key === key);
+      if (!zone) return;
+      zone[field] = e.target.value;
+      save();
+    });
+    input.addEventListener('click', e => { if(editMode) e.stopPropagation(); });
+    input.addEventListener('focus', e => { if(editMode) e.stopPropagation(); });
+  });
+}
+
+function headerClick(e, h) {
+  if (editMode && e.target.tagName === 'INPUT') return;
+  h.closest('.accordion').classList.toggle('open');
+}
+
+function addChannel(key) {
+  if (!state.data[key]) state.data[key] = [];
+  state.data[key].push('NEW ENTRY');
+  save();
+  render(document.getElementById('searchInput').value.trim());
+  const acc = document.querySelector(`.accordion[data-zkey="${key}"]`);
+  if (acc) { acc.classList.add('open'); acc.querySelector('.acc-body').scrollIntoView({behavior:'smooth',block:'nearest'}); }
+}
+
+function delChannel(key, ci) {
+  if (!state.data[key]) return;
+  state.data[key].splice(ci, 1);
+  save();
+  render(document.getElementById('searchInput').value.trim());
+  const acc = document.querySelector(`.accordion[data-zkey="${key}"]`);
+  if (acc) acc.classList.add('open');
+}
+
+function deleteZone(key) {
+  if (!confirm(`Delete zone "${state.zones.find(z=>z.key===key)?.label}"? This cannot be undone.`)) return;
+  state.zones = state.zones.filter(z => z.key !== key);
+  delete state.data[key];
+  save();
+  render(document.getElementById('searchInput').value.trim());
+}
+
+document.getElementById('addZoneBtn').addEventListener('click', () => {
+  const num = prompt('Zone number/ID (e.g. Z6, Z15):') || '';
+  const label = prompt('Zone label (e.g. Zone 6):');
+  if (!label) return;
+  const sub = prompt('Zone subtitle:') || '';
+  const key = uniqueKey(num || label);
+  const colors = ['#c0392b','#27ae60','#d4ac0d','#e67e22','#2d6fa3','#8957e5','#da3633','#1e8449'];
+  const color = colors[state.zones.length % colors.length];
+  state.zones.push({key, num: num||key, label, sub, color});
+  state.data[key] = Array(16).fill('—');
+  save();
+  render(document.getElementById('searchInput').value.trim());
+  setTimeout(() => {
+    const acc = document.querySelector(`.accordion[data-zkey="${key}"]`);
+    if (acc) { acc.classList.add('open'); acc.scrollIntoView({behavior:'smooth',block:'start'}); }
+  }, 50);
+});
+
+// ── EDIT TOGGLE ──────────────────────────────────
+const editToggle = document.getElementById('editToggle');
+const editBanner = document.getElementById('editBanner');
+editToggle.addEventListener('click', () => {
+  editMode = !editMode;
+  editToggle.textContent = editMode ? '✅ Done' : '✏️ Edit';
+  editToggle.classList.toggle('edit-active', editMode);
+  editBanner.classList.toggle('show', editMode);
+  applyEditMode();
+  if (editMode) document.querySelectorAll('.accordion').forEach(a => a.classList.add('open'));
+});
+
+// ── SEARCH / NAV ─────────────────────────────────
 let marks=[],cur=-1;
 const prevBtn=document.getElementById('prevBtn');
 const nextBtn=document.getElementById('nextBtn');
@@ -298,6 +464,68 @@ document.getElementById('expandAll').addEventListener('click',()=>document.query
 document.getElementById('collapseAll').addEventListener('click',()=>{
   document.querySelectorAll('.accordion').forEach(a=>a.classList.remove('open'));marks=[];cur=-1;nav();
 });
+
+// ── EXPORT ───────────────────────────────────────
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `hhfd_radio_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// ── IMPORT ───────────────────────────────────────
+let pendingImportData = null;
+
+document.getElementById('importBtn').addEventListener('click', () => {
+  pendingImportData = null;
+  document.getElementById('importFile').value = '';
+  document.getElementById('importFile').click();
+});
+
+document.getElementById('importFile').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const parsed = JSON.parse(ev.target.result);
+      if (!parsed.zones || !parsed.data) throw new Error('Invalid format');
+      pendingImportData = parsed;
+      document.getElementById('importModal').classList.add('show');
+    } catch(err) {
+      alert('Invalid file. Please select a valid HHFD Radio export (.json).');
+    }
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById('importConfirm').addEventListener('click', () => {
+  if (!pendingImportData) return;
+  state = pendingImportData;
+  save();
+  document.getElementById('importModal').classList.remove('show');
+  render(document.getElementById('searchInput').value.trim());
+  pendingImportData = null;
+});
+
+document.getElementById('importCancel').addEventListener('click', () => {
+  document.getElementById('importModal').classList.remove('show');
+  pendingImportData = null;
+});
+
+// ── DISCLAIMER (shown once) ───────────────────────
+const DISC_KEY = 'hhfd_disclaimer_seen';
+if (!localStorage.getItem(DISC_KEY)) {
+  document.getElementById('disclaimerModal').classList.add('show');
+}
+document.getElementById('disclaimerOk').addEventListener('click', () => {
+  localStorage.setItem(DISC_KEY, '1');
+  document.getElementById('disclaimerModal').classList.remove('show');
+});
+
 render('');
 </script>
 </body>
